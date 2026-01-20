@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+sqlalchemy
+passlib[argon2]
+argon2-cffi
+reportlab
+pydantic
+python-multipart
+psycopg2-binary
