@@ -1,10 +1,17 @@
 ############################
-# ROOT → CUSTOMER
+# ROOT → CUSTOMER INDEX
 ############################
 /                       /customer/pages/index.html 200
 
 ############################
-# CUSTOMER (clean URLs)
+# STATIC ASSETS (DO NOT REMOVE)
+############################
+/css/*                  /customer/css/:splat 200
+/js/*                   /customer/js/:splat 200
+/assets/*               /customer/assets/:splat 200
+
+############################
+# CUSTOMER PAGES (CLEAN URLS)
 ############################
 /local                  /customer/pages/local.html 200
 /oneway                 /customer/pages/oneway.html 200
@@ -15,7 +22,7 @@
 /customer/*             /customer/:splat 200
 
 ############################
-# DRIVER MODULE
+# DRIVER MODULE (FULL)
 ############################
 /driver                 /driver/pages/driver_login.html 200
 /driver/login           /driver/pages/driver_login.html 200
@@ -32,9 +39,3 @@
 /admin/dashboard        /admin/pages/admin.html 200
 
 /admin/*                /admin/:splat 200
-
-############################
-# SAFETY FALLBACK
-############################
-/*  /customer/pages/index.html 200
-
