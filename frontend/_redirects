@@ -36,4 +36,5 @@
 ############################
 # SAFETY FALLBACK
 ############################
-/*                      /customer/pages/index.html 404
+/*  /customer/pages/index.html 200
+
