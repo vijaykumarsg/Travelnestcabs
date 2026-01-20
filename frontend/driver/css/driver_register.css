@@ -1,0 +1,158 @@
+*{
+  box-sizing:border-box;
+  font-family:"Segoe UI", sans-serif;
+}
+
+body{
+  margin:0;
+}
+
+/* FULL BACKGROUND */
+.page{
+  min-height:100vh;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  padding:120px 60px;
+  background:
+    url("../images/reg_driver.png") center/cover no-repeat;
+  color:white;
+}
+
+/* LEFT CONTENT — WHITE + POSITIONED DOWN */
+.left-content{
+  width:45%;
+  margin-top:10px;
+}
+
+.left-content h1{
+  font-size:38px;
+  font-weight:700;
+  margin-bottom:20px;
+  color:white;
+}
+
+.left-content p{
+  font-size:17px;
+  line-height:1.7;
+  margin-bottom:25px;
+  color:white;
+}
+
+.left-content ul{
+  list-style:none;
+  padding:0;
+}
+
+.left-content li{
+  font-size:15px;
+  margin-bottom:12px;
+  color:white;
+}
+
+/* GLASS CARD */
+.reg-card{
+  width:420px;
+  padding:25px;
+  border-radius:14px;
+
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+
+  color:#ffffff;
+}
+
+/* TEXT */
+h2{
+  text-align:center;
+  margin:0;
+}
+
+.subtitle{
+  text-align:center;
+  font-size:13px;
+  color:#f0f0f0;
+  margin-bottom:15px;
+}
+
+label{
+  font-size:13px;
+  font-weight:600;
+  color:white;
+}
+
+/* INPUTS — FIXED (BLACK TEXT) */
+input{
+  width:100%;
+  padding:8px;
+  margin:6px 0 12px 0;
+  border-radius:6px;
+
+  background:rgba(255,255,255,0.9);
+  border:1px solid rgba(255,255,255,0.35);
+
+  color:#000000; /* BLACK TEXT */
+}
+
+input::placeholder{
+  color:#555555; /* dark grey */
+}
+
+input:focus{
+  outline:none;
+  border-color:#0a3d91;
+  background:#ffffff;
+}
+
+/* BUTTON */
+.btn{
+  width:100%;
+  background:#0a3d91;
+  color:white;
+  border:none;
+  padding:10px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:15px;
+}
+
+.btn:hover{
+  opacity:0.9;
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;
+  margin-top:10px;
+  font-size:13px;
+}
+
+.footer a{
+  color:#ffffff;
+  font-weight:600;
+  text-decoration:none;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .page{
+    flex-direction:column;
+    padding:80px 20px;
+  }
+
+  .left-content{
+    width:100%;
+    text-align:center;
+    margin-bottom:40px;
+  }
+
+  .reg-card{
+    width:100%;
+    max-width:420px;
+    margin:auto;
+  }
+}

@@ -1,0 +1,170 @@
+/* =====================
+   RESET
+===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* =====================
+   PAGE BACKGROUND
+===================== */
+html, body {
+  min-height: 100vh;
+}
+
+body {
+  background: url("../images/ref.png") no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+}
+
+/* Dark overlay for contrast */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: -1;
+}
+
+/* =====================
+   LAYOUT
+===================== */
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* =====================
+   MAIN CARD (TRANSPARENT)
+===================== */
+.reg-card {
+  width: 800px;
+  background: rgba(255, 255, 255, 0.12); /* transparent */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 26px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* =====================
+   HEADING
+===================== */
+.reg-card h2 {
+  margin-bottom: 18px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+}
+
+/* =====================
+   TABLE
+===================== */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Header */
+.table thead {
+  background: rgba(13, 110, 253, 0.85);
+}
+
+.table th {
+  padding: 12px 10px;
+  font-size: 13px;
+  color: #ffffff;
+  text-align: left;
+  font-weight: 600;
+}
+
+/* Body */
+.table td {
+  padding: 11px 10px;
+  font-size: 13px;
+  color: #f1f5f9;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Hover row */
+.table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* =====================
+   STATUS TEXT
+===================== */
+.table td:nth-child(5) {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* =====================
+   ACTION BUTTONS
+===================== */
+.action {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #ffffff;
+  transition: background 0.2s ease;
+}
+
+/* Approve */
+.btn.approve,
+.action button:first-child {
+  background: rgba(22, 163, 74, 0.9);
+}
+
+.btn.approve:hover,
+.action button:first-child:hover {
+  background: rgba(21, 128, 61, 1);
+}
+
+/* Reject */
+.btn.reject,
+.action button:last-child {
+  background: rgba(220, 38, 38, 0.9);
+}
+
+.btn.reject:hover,
+.action button:last-child:hover {
+  background: rgba(185, 28, 28, 1);
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+@media (max-width: 900px) {
+  .reg-card {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .table {
+    font-size: 12px;
+  }
+
+  .action {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

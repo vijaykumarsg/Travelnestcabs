@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Driver Dashboard - TravelNestCabs</title>
+<link rel="stylesheet" href="../css/driver_dashboard.css">
+
+<style>
+.top{
+ display:flex;
+ justify-content:space-between;
+ margin-bottom:10px;
+}
+
+.card{
+ background:#fff;
+ padding:12px;
+ margin:8px 0;
+ border-radius:6px;
+ box-shadow:0 0 5px #ddd;
+}
+
+.status{
+ padding:4px 8px;
+ border-radius:4px;
+ font-size:12px;
+}
+
+.pending{background:#fff3cd;}
+.approved{background:#d4edda;}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="reg-card" style="width:600px">
+
+<div class="top">
+<h3>Welcome, <span id="driverName"></span></h3>
+<button class="btn" style="width:120px" onclick="logout()">Logout</button>
+
+</div>
+
+<div class="card">
+<b>Verification Status:</b>
+<span id="driverStatus" class="status">Loading...</span>
+</div>
+
+<!-- ✅ Wallet Balance -->
+<div class="card">
+<b>Wallet Balance:</b>
+₹ <span id="walletBalance">0</span>
+</div>
+
+<h4>Assigned Trips</h4>
+
+<!-- ✅ Dynamic trips will load here -->
+<div id="tripList"></div>
+
+</div>
+</div>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+const API = "http://127.0.0.1:9000";
+
+/*
+  TEMPORARY:
+  Later this will come from login
+*/
+const DRIVER_ID = localStorage.getItem("driver_id") || 1;
+
+
+// ---------------- LOAD PROFILE ----------------
+async function loadProfile() {
+  const res = await fetch(`${API}/api/driver/profile/${DRIVER_ID}`);
+  const data = await res.json();
+
+  document.getElementById("driverName").innerText = data.name;
+
+  const statusEl = document.getElementById("driverStatus");
+  statusEl.innerText = data.status;
+
+  statusEl.className = "status " +
+    (data.status === "APPROVED" ? "approved" : "pending");
+}
+
+
+// ---------------- LOAD WALLET ----------------
+async function loadWallet() {
+  const res = await fetch(`${API}/api/wallet/${DRIVER_ID}`);
+  const data = await res.json();
+
+  document.getElementById("walletBalance").innerText = data.balance;
+}
+
+
+// ---------------- LOAD TRIPS ----------------
+async function loadTrips() {
+  const res = await fetch(`${API}/api/driver/trips/${DRIVER_ID}`);
+  const trips = await res.json();
+
+  const container = document.getElementById("tripList");
+  container.innerHTML = "";
+
+  if (!trips.length) {
+    container.innerHTML = `<div class="card">No trips assigned</div>`;
+    return;
+  }
+
+  trips.forEach(t => {
+    container.innerHTML += `
+      <div class="card">
+        <p><b>Booking ID:</b> ${t.booking_number}</p>
+        <p><b>Pickup:</b> ${t.pickup}</p>
+        <p><b>Drop:</b> ${t.drop}</p>
+        <p><b>Fare:</b> ₹${t.fare}</p>
+        <p><b>Status:</b> ${t.status}</p>
+        <button class="btn">Start Trip</button>
+      </div>
+    `;
+  });
+}
+
+
+// ---------------- INIT ----------------
+loadProfile();
+loadWallet();
+loadTrips();
+</script>
+
+
+<script>
+function logout() {
+  // remove stored driver session
+  localStorage.removeItem("driver_id");
+
+  // redirect to login page
+  window.location.href = "driver_login.html";
+}
+</script>
+
+</body>
+</html>

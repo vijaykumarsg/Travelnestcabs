@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Travel Nest Cabs – Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../css/admin.css">
+
+  <style>
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    .filter-bar input,
+    .filter-bar button {
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+    .filter-bar button {
+      background: #0a3d91;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN PAGE ================= -->
+<div id="loginPage" class="login-page">
+  <div class="login-left">
+    <h1>Welcome to <br><span>Travel Nest Cabs</span></h1>
+    <p>Reliable, comfortable, and affordable cab services.</p>
+  </div>
+
+  <div class="login-right">
+    <div class="login-card">
+      <h2>Admin Login</h2>
+
+      <input type="text" id="adminUsername" placeholder="Username">
+      <input type="password" id="adminPassword" placeholder="Password">
+
+      <button type="button" onclick="adminLogin()">Login</button>
+      <p id="loginError" class="error-text"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= DASHBOARD ================= -->
+<div id="dashboard" style="display:none">
+  <header>
+    <h1>🚖 Travel Nest Cabs – Admin Panel</h1>
+    <button onclick="logout()">Logout</button>
+  </header>
+
+  <section>
+    <h2>Bookings</h2>
+
+    <div class="filter-bar">
+      <input type="text" id="searchBookingNo" placeholder="Search Booking No" oninput="applyFilters()">
+      <input type="date" id="filterDate" onchange="applyFilters()">
+      <button onclick="exportToExcel()">📥 Export to Excel</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Booking No</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Pickup</th>
+          <th>Drop</th>
+          <th>Car</th>
+          <th>Price</th>
+          <th>Booked At</th>
+          <th>Status</th>
+          <th>Invoice</th>
+          <th>WhatsApp</th>
+        </tr>
+      </thead>
+      <tbody id="bookingTable">
+        <tr><td colspan="12">Loading...</td></tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+
+<script>
+"use strict";
+
+const API_BASE_URL = "https://travelnest-backend-p13p.onrender.com";
+
+const tableBody = document.getElementById("bookingTable");
+let allBookings = [];
+
+/* ================= DATE FORMAT ================= */
+function formatDateTime(dt) {
+  const d = new Date(dt);
+  return d.toLocaleDateString() + " " + d.toLocaleTimeString();
+}
+
+/* ================= ADMIN LOGIN (NO BACKEND) ================= */
+function adminLogin() {
+  const username = document.getElementById("adminUsername").value.trim();
+  const password = document.getElementById("adminPassword").value.trim();
+
+  const ADMIN_USER = "admin";
+  const ADMIN_PASS = "admin123";
+
+  if (username === ADMIN_USER && password === ADMIN_PASS) {
+    localStorage.setItem("admin_logged_in", "true");
+
+    document.getElementById("loginPage").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+
+    loadBookings();
+  } else {
+    document.getElementById("loginError").innerText =
+      "Invalid username or password";
+  }
+}
+
+/* ================= LOGIN CHECK ON PAGE LOAD ================= */
+// Always show login first
+document.getElementById("loginPage").style.display = "flex";
+document.getElementById("dashboard").style.display = "none";
+
+
+/* ================= LOAD BOOKINGS ================= */
+async function loadBookings() {
+  try {
+
+    const username = document.getElementById("adminUsername").value.trim();
+    const password = document.getElementById("adminPassword").value.trim();
+
+    const basicAuth = btoa(username + ":" + password);
+
+    const res = await fetch(`${API_BASE_URL}/api/admin/bookings`, {
+      headers: {
+        "Authorization": "Basic " + basicAuth
+      }
+    });
+
+    if (res.status === 401) {
+      tableBody.innerHTML =
+        `<tr><td colspan="12">Invalid admin credentials</td></tr>`;
+      return;
+    }
+
+    const bookings = await res.json();
+    allBookings = bookings;
+    renderBookings(bookings);
+
+  } catch (err) {
+    console.log("ADMIN FETCH ERROR:", err);
+
+    tableBody.innerHTML =
+      `<tr><td colspan="12">Backend not reachable</td></tr>`;
+  }
+}
+
+
+/* ================= RENDER BOOKINGS ================= */
+function renderBookings(bookings) {
+  tableBody.innerHTML = "";
+
+  bookings.forEach(b => {
+  const invoiceLink = b.invoice_exists
+  ? `<button onclick="openInvoice(${b.id})">View</button>`
+  : "-";
+
+
+
+
+
+    const whatsappBtn = b.invoice_exists
+      ? `<button onclick="sendWhatsApp(${b.id})">Send</button>`
+      : "-";
+
+    tableBody.innerHTML += `
+      <tr>
+        <td>${b.id}</td>
+        <td><strong>${b.booking_number}</strong></td>
+        <td>${b.name}</td>
+        <td>${b.phone}</td>
+        <td>${b.pickup}</td>
+        <td>${b.drop}</td>
+        <td>${b.car}</td>
+        <td>₹${b.price}</td>
+        <td>${formatDateTime(b.created_at)}</td>
+        <td>
+          <select onchange="updateStatus(${b.id}, this.value)">
+            <option value="PENDING" ${b.status==="PENDING"?"selected":""}>Pending</option>
+            <option value="CONFIRMED" ${b.status==="CONFIRMED"?"selected":""}>Confirmed</option>
+            <option value="COMPLETED" ${b.status==="COMPLETED"?"selected":""}>Completed</option>
+            <option value="CANCELLED" ${b.status==="CANCELLED"?"selected":""}>Cancelled</option>
+          </select>
+        </td>
+        <td>${invoiceLink}</td>
+        <td>${whatsappBtn}</td>
+      </tr>
+    `;
+  });
+
+  if (!bookings.length) {
+    tableBody.innerHTML =
+      `<tr><td colspan="12">No matching records</td></tr>`;
+  }
+}
+
+/* ================= FILTERS ================= */
+function applyFilters() {
+  const searchValue = document.getElementById("searchBookingNo").value.toLowerCase();
+  const filterDate = document.getElementById("filterDate").value;
+
+  let filtered = allBookings;
+
+  if (searchValue) {
+    filtered = filtered.filter(b =>
+      b.booking_number.toLowerCase().includes(searchValue)
+    );
+  }
+
+  if (filterDate) {
+    filtered = filtered.filter(b =>
+      new Date(b.created_at).toISOString().split("T")[0] === filterDate
+    );
+  }
+
+  renderBookings(filtered);
+}
+
+/* ================= UPDATE STATUS ================= */
+async function updateStatus(id, status) {
+
+  const username = document.getElementById("adminUsername").value.trim();
+  const password = document.getElementById("adminPassword").value.trim();
+
+  const basicAuth = btoa(username + ":" + password);
+
+  await fetch(`${API_BASE_URL}/api/admin/bookings/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Basic " + basicAuth
+    },
+    body: JSON.stringify({ status })
+  });
+
+  loadBookings();
+}
+
+
+/* ================= SEND WHATSAPP ================= */
+async function sendWhatsApp(id) {
+
+  try {
+
+    // get credentials from login fields
+    const username = document.getElementById("adminUsername").value.trim();
+    const password = document.getElementById("adminPassword").value.trim();
+
+    const basicAuth = btoa(username + ":" + password);
+
+    const res = await fetch(`${API_BASE_URL}/api/invoice/resend-whatsapp/${id}`, {
+      method: "POST",
+      headers: {
+        "Authorization": "Basic " + basicAuth
+      }
+    });
+
+    const data = await res.json();
+
+    if (res.ok && data.whatsapp_link) {
+      window.open(data.whatsapp_link, "_blank");
+    } else {
+      alert(data.detail || "Invoice not generated yet");
+    }
+
+  } catch (err) {
+    console.log("WHATSAPP ERROR:", err);
+    alert("Could not connect to server");
+  }
+}
+
+/* ================= EXPORT CSV ================= */
+function exportToExcel() {
+  if (!allBookings.length) {
+    alert("No data to export");
+    return;
+  }
+
+  const headers = [
+    "Booking No","Name","Phone","Pickup","Drop",
+    "Car","Price","Booked At","Status"
+  ];
+
+  let csv = headers.join(",") + "\n";
+
+  allBookings.forEach(b => {
+    csv += [
+      b.booking_number,
+      b.name,
+      b.phone,
+      b.pickup,
+      b.drop,
+      b.car,
+      b.price,
+      formatDateTime(b.created_at),
+      b.status
+    ].join(",") + "\n";
+  });
+
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "travel_nest_bookings.csv";
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+function logout() {
+  localStorage.removeItem("admin_logged_in");
+  location.reload();
+}
+
+
+async function openInvoice(id) {
+
+  try {
+
+    const res = await fetch(`${API_BASE_URL}/api/invoice/file/${id}`);
+
+    if (!res.ok) {
+      const txt = await res.text();
+      alert("Server response: " + txt);
+      return;
+    }
+
+    // Convert to file
+    const blob = await res.blob();
+
+    // Create real downloadable file
+    const url = window.URL.createObjectURL(blob);
+
+    // Force browser download + open
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `invoice-${id}.pdf`;   // forces PDF handling
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+  } catch (err) {
+    alert("Could not open invoice");
+    console.log(err);
+  }
+}
+
+
+
+
+</script>
+
+</body>
+</html>

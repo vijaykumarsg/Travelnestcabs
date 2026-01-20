@@ -1,0 +1,118 @@
+*{
+  box-sizing:border-box;
+  font-family:"Segoe UI", sans-serif;
+}
+
+body{
+  margin:0;
+}
+
+/* PURE IMAGE BACKGROUND */
+.container{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  padding-right:80px;
+
+  background:
+    url("../images/driver_login.png") center/cover no-repeat;
+}
+
+/* TRANSPARENT LOGIN CARD */
+.reg-card{
+  width:380px;
+  padding:28px;
+  border-radius:14px;
+
+  background:rgba(255,255,255,0.10);
+  border:1px solid rgba(255,255,255,0.30);
+  box-shadow:0 10px 40px rgba(0,0,0,0.35);
+
+  color:white;
+}
+
+/* TEXT */
+h2{
+  text-align:center;
+  margin:0;
+  color:white;
+}
+
+.subtitle{
+  text-align:center;
+  font-size:13px;
+  color:#f0f0f0;
+  margin-bottom:20px;
+}
+
+label{
+  font-size:13px;
+  font-weight:600;
+  color:white;
+}
+
+/* INPUTS — FIXED HERE */
+input{
+  width:100%;
+  padding:9px;
+  margin:6px 0 14px 0;
+  border-radius:6px;
+
+  background:rgba(255,255,255,0.9); /* light background */
+  border:1px solid rgba(255,255,255,0.40);
+
+  color:#000000; /* BLACK text */
+}
+
+input::placeholder{
+  color:#555555; /* dark grey placeholder */
+}
+
+input:focus{
+  outline:none;
+  border-color:#0a3d91;
+  background:#ffffff;
+}
+
+/* BUTTON */
+.btn{
+  width:100%;
+  background:#0a3d91;
+  color:white;
+  border:none;
+  padding:10px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:15px;
+}
+
+.btn:hover{
+  opacity:0.9;
+}
+
+/* FOOTER */
+.footer{
+  text-align:center;
+  margin-top:12px;
+  font-size:13px;
+}
+
+.footer a{
+  color:#ffffff;
+  text-decoration:none;
+  font-weight:600;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .container{
+    justify-content:center;
+    padding:0 20px;
+  }
+
+  .reg-card{
+    width:100%;
+    max-width:380px;
+  }
+}

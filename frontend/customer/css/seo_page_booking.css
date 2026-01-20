@@ -1,0 +1,204 @@
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: #000;
+}
+
+/* ===== HERO SECTION (USES SAME HTML CLASS) ===== */
+.booking-hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 80px;
+  gap: 60px;
+  color: white;
+
+  /* ✅ BEACH IMAGE + DARK OVERLAY */
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.55),
+      rgba(0, 0, 0, 0.70)
+    ),
+    url("../assets/images/seo_booking_bg.png") no-repeat center center / cover;
+}
+
+/* ===== LEFT CONTENT ===== */
+.hero-left {
+  flex: 1;
+}
+
+.hero-left h1 {
+  font-size: 48px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.hero-left h1 span {
+  color: #ffd700;
+}
+
+.hero-left p {
+  max-width: 520px;
+  font-size: 16px;
+  line-height: 1.7;
+  opacity: 0.95;
+}
+
+/* ===== RIGHT SIDE ===== */
+.hero-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+/* ===== GLASS FORM ===== */
+.booking-wrapper {
+  width: 380px;
+  padding: 34px;
+  border-radius: 22px;
+
+  background: rgba(18, 22, 30, 0.78);
+  backdrop-filter: blur(16px);
+
+  box-shadow: 0 35px 80px rgba(0,0,0,0.7);
+  color: #ffffff;
+}
+
+.booking-wrapper h2 {
+  text-align: center;
+  margin-bottom: 18px;
+  color: #ffd700;
+  font-weight: 600;
+}
+
+/* ===== FORM GRID ===== */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-group.full {
+  grid-column: span 2;
+}
+
+.form-group i {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: #ffd700;
+  font-size: 14px;
+}
+
+/* ===== INPUTS & SELECT ===== */
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 13px 14px 13px 40px;
+  border-radius: 12px;
+  border: none;
+  font-size: 14px;
+
+  background: rgba(255,255,255,0.12);
+  color: #ffffff;
+}
+
+.form-group input::placeholder {
+  color: rgba(255,255,255,0.75);
+}
+
+.form-group input[readonly] {
+  cursor: not-allowed;
+  opacity: 0.9;
+}
+
+.form-group select {
+  appearance: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  background: rgba(255,255,255,0.18);
+}
+
+/* ===== SELECT DROPDOWN FIX ===== */
+select {
+  background-color: rgba(20, 24, 32, 0.95) !important;
+  color: #ffffff !important;
+}
+
+select option {
+  background-color: #0f172a;
+  color: #ffffff;
+}
+
+/* ===== BUTTON ===== */
+.send-btn {
+  width: 100%;
+  margin-top: 22px;
+  padding: 14px;
+  background: linear-gradient(135deg, #ffd700, #ffb300);
+  color: #000;
+  border: none;
+  border-radius: 14px;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.send-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(255,215,0,0.35);
+}
+
+/* ===== BACK LINK ===== */
+.back-link {
+  display: block;
+  margin-top: 16px;
+  text-align: center;
+  color: #ffd700;
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: rgba(0,0,0,0.75);
+  color: white;
+  text-align: center;
+  padding: 12px;
+  font-size: 14px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .booking-hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .hero-left p {
+    margin: auto;
+  }
+
+  .booking-wrapper {
+    width: 100%;
+    max-width: 380px;
+  }
+}

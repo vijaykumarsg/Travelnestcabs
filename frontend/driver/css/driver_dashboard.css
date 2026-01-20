@@ -1,0 +1,154 @@
+/* =====================
+   RESET
+===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* =====================
+   FULL BACKGROUND IMAGE
+===================== */
+body {
+  background: url("../images/driver_bg1.png") no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+/* =====================
+   LAYOUT
+===================== */
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 40px 15px;
+}
+
+/* =====================
+   FULL TRANSPARENT CARD
+===================== */
+.reg-card {
+  width: 600px;
+  background: transparent;      /* ✅ fully transparent */
+  box-shadow: none;              /* no shadow */
+  border-radius: 0;              /* no round */
+  padding: 22px 24px;
+}
+
+/* =====================
+   TEXT COLOR (IMPORTANT)
+===================== */
+.reg-card,
+.reg-card p,
+.reg-card h3,
+.reg-card h4,
+.reg-card b,
+.reg-card span {
+  color: #ffffff;                /* white text */
+}
+
+/* =====================
+   TOP BAR
+===================== */
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+/* =====================
+   BUTTONS
+===================== */
+.btn {
+  background: rgba(13, 110, 253, 0.85);
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn:hover {
+  background: rgba(13, 110, 253, 1);
+}
+
+/* =====================
+   INNER CARDS
+===================== */
+.card {
+  background: transparent;      /* ✅ transparent */
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+}
+
+/* =====================
+   STATUS
+===================== */
+.status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.pending {
+  background: rgba(255, 193, 7, 0.9);
+  color: #000;
+}
+
+.approved {
+  background: rgba(40, 167, 69, 0.9);
+  color: #fff;
+}
+
+/* =====================
+   WALLET
+===================== */
+#walletBalance {
+  font-size: 20px;
+  font-weight: 700;
+  color: #00ff9c;
+}
+
+/* =====================
+   TRIPS
+===================== */
+#tripList .btn {
+  width: 100%;
+  margin-top: 10px;
+  background: rgba(40, 167, 69, 0.9);
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+@media (max-width: 768px) {
+  .reg-card {
+    width: 100%;
+  }
+
+  .top {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+
+
+#verificationStatus,
+#walletBalance {
+  color: #000;
+  background: rgba(255,255,255,0.85);
+  padding: 4px 8px;
+  border-radius: 6px;
+}

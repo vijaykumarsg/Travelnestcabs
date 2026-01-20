@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Nest Cabs – Book Your Cab</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <!-- Booking Page CSS -->
+  <link rel="stylesheet" href="../css/booking.css">
+</head>
+<body>
+
+<!-- ================= HERO BOOKING SECTION ================= -->
+<section class="booking-hero">
+
+  <!-- LEFT CONTENT -->
+  <div class="hero-left">
+    <h1>
+      Fast, Smart <br>
+      Cab Bookings with <span>Travel Nest Cabs</span>
+    </h1>
+    <p>
+      Book reliable, comfortable, and affordable cab services for airport
+      transfers, local rides, and outstation journeys.  
+      Travel Nest Cabs ensures a smooth and safe travel experience every time.
+    </p>
+  </div>
+
+  <!-- RIGHT FORM -->
+  <div class="hero-right">
+    <div class="booking-wrapper" id="contact">
+
+      <h2>Book Your Cab</h2>
+
+      <div id="selectedInfo" class="selected-box"></div>
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <i class="fa fa-user"></i>
+          <input id="custName" placeholder="Your Name">
+        </div>
+
+        <div class="form-group">
+          <i class="fa fa-phone"></i>
+          <input id="custPhone" placeholder="Phone Number">
+        </div>
+
+        <div class="form-group full">
+          <i class="fa fa-location-dot"></i>
+          <input id="pickupLoc" placeholder="Pickup Location">
+        </div>
+
+        <div class="form-group full">
+          <i class="fa fa-flag-checkered"></i>
+          <input id="dropLoc" placeholder="Drop Location">
+        </div>
+
+        <div class="form-group full">
+          <i class="fa fa-calendar"></i>
+          <input type="date" id="travelDate">
+        </div>
+
+        <!-- ✅ UPDATED TIME FIELD (STANDARD – AM / PM SUPPORT) -->
+        <div class="form-group full">
+          <i class="fa fa-clock"></i>
+          <input
+            type="time"
+            id="travelTime"
+            step="1800"
+            placeholder="Select Time"
+          >
+        </div>
+
+      </div>
+
+      <button class="send-btn" onclick="sendBooking()">
+        <i class="fa fa-paper-plane"></i> Submit Booking
+      </button>
+
+      <a href="index.html" class="back-link">← Back to Cars</a>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  © 2026 Travel Nest Cabs • Fast & Smart Online Booking
+</footer>
+
+<!-- ================= SCRIPT (UNCHANGED) ================= -->
+<script>
+/* ================= CONFIG ================= */
+
+const API_BASE_URL = "https://travelnest-backend-p13p.onrender.com";
+
+
+const OWNER_PHONE = "919535489504";
+
+/* ================= READ URL PARAMS ================= */
+
+const params = new URLSearchParams(window.location.search);
+let selectedTrip  = params.get("trip") || "";
+let selectedCar   = params.get("car") || "";
+let selectedPrice = params.get("fare") || "";
+
+if (selectedCar) {
+  document.getElementById("selectedInfo").innerText =
+    `Selected: ${selectedCar} (${selectedTrip}) – ₹${selectedPrice}`;
+}
+
+/* ================= SEND BOOKING ================= */
+
+async function sendBooking() {
+
+  const name   = document.getElementById("custName").value.trim();
+  const phone  = document.getElementById("custPhone").value.trim();
+  const pickup = document.getElementById("pickupLoc").value.trim();
+  const drop   = document.getElementById("dropLoc").value.trim();
+  const date   = document.getElementById("travelDate").value;
+  const time   = document.getElementById("travelTime").value;
+
+  if (!name || !phone || !pickup || !drop) {
+    alert("Please fill all required details");
+    return;
+  }
+
+  if (!selectedTrip || !selectedCar) {
+    alert("Please select a cab first");
+    return;
+  }
+
+  const bookingPayload = {
+    name,
+    phone,
+    pickup,
+    drop,
+    trip_type: selectedTrip,
+    car: selectedCar,
+    price: parseFloat(selectedPrice) || 0,
+    travel_date: date,
+    travel_time: time
+  };
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/bookings`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(bookingPayload)
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+        alert("SERVER RESPONSE:\n" + JSON.stringify(data, null, 2));
+        throw data;
+}
+
+
+    alert("✅ Booking submitted successfully!");
+
+    const whatsappMsg = `🚖 New Cab Booking
+
+Trip: ${selectedTrip}
+Car: ${selectedCar}
+Fare: ₹${selectedPrice}
+
+👤 ${name}
+📞 ${phone}
+📍 ${pickup}
+🏁 ${drop}
+📅 ${date}
+⏰ ${time}`;
+
+    window.open(
+      "https://wa.me/" + OWNER_PHONE +
+      "?text=" + encodeURIComponent(whatsappMsg),
+      "_blank"
+    );
+
+  }catch (err) {
+  alert("❌ ERROR FROM SERVER:\n" + JSON.stringify(err, null, 2));
+  console.log("FULL ERROR:", err);
+}
+}
+</script>
+
+</body>
+</html>

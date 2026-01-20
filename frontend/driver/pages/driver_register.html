@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Driver Registration - TravelNestCabs</title>
+<link rel="stylesheet" href="../css/driver_register.css">
+</head>
+
+<body>
+
+<div class="page">
+
+  <!-- LEFT CONTENT -->
+  <div class="left-content">
+    <h1>Drive with TravelNestCabs</h1>
+    <p>
+      Join TravelNestCabs as a trusted driver partner and earn on your own terms.
+      Enjoy flexible working hours, steady rides, and secure weekly payouts.
+    </p>
+
+    <ul>
+      <li>✔ Flexible working hours</li>
+      <li>✔ Transparent earnings</li>
+      <li>✔ Verified & safe riders</li>
+      <li>✔ 24/7 driver support</li>
+    </ul>
+  </div>
+
+  <!-- RIGHT FORM -->
+  <div class="reg-card">
+
+    <h2>Driver Registration</h2>
+    <p class="subtitle">Join TravelNestCabs as a partner driver</p>
+
+    <!-- hidden fake inputs to stop browser autofill -->
+    <input type="text" style="display:none">
+    <input type="password" style="display:none">
+
+    <form autocomplete="off">
+
+      <label>Full Name</label>
+      <input type="text" placeholder="Enter name" autocomplete="off">
+
+      <label>Phone Number</label>
+      <input type="text" placeholder="Enter phone" autocomplete="off">
+
+      <label>Email</label>
+      <input type="email" placeholder="Enter email" autocomplete="off">
+
+      <label>Driving Licence Number</label>
+      <input type="text" placeholder="KA0120200001234" autocomplete="off">
+
+      <label>Licence Expiry Date</label>
+      <input type="date" autocomplete="off">
+
+      <label>Vehicle Number</label>
+      <input type="text" placeholder="KA 01 AB 1234" autocomplete="off">
+
+      <label>Create Password</label>
+      <input type="password" placeholder="Password" autocomplete="new-password">
+
+      <label>Upload Driving Licence</label>
+      <input type="file" accept="image/*,.pdf">
+
+      <!-- CAMERA ENABLED SELFIE -->
+      <label>Capture Selfie</label>
+      <input 
+        type="file"
+        accept="image/*"
+        capture="user"
+      >
+
+      <button class="btn">Register Now</button>
+
+      <div class="footer">
+        Already registered? <a href="driver_login.html">Login</a>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+</body>
+</html>

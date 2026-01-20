@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirm Booking | Travel Nest Cabs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <!-- SEO BOOKING CSS -->
+  <link rel="stylesheet" href="../../css/seo_page_booking.css">
+</head>
+
+<body>
+
+<section class="booking-hero">
+
+  <!-- LEFT CONTENT -->
+  <div class="hero-left">
+    <h1>
+      Fast & Reliable Cab Booking <br>
+      with <span>Travel Nest Cabs</span>
+    </h1>
+    <p>
+      Book trusted cab services for airport transfers, local rides,
+      outstation trips, and one-way drops. Enjoy clean vehicles,
+      professional drivers, transparent pricing, and 24×7 customer
+      support for a smooth and comfortable journey.
+    </p>
+  </div>
+
+  <!-- RIGHT FORM -->
+  <div class="hero-right">
+    <div class="booking-wrapper">
+
+      <h2>Confirm Booking</h2>
+
+      <div class="form-grid">
+
+        <div class="form-group full">
+          <i class="fa fa-user"></i>
+          <input type="text" id="name" placeholder="Your Name" required>
+        </div>
+
+        <div class="form-group full">
+          <i class="fa fa-phone"></i>
+          <input type="tel" id="phone" placeholder="Phone Number" required>
+        </div>
+
+        <div class="form-group full">
+          <i class="fa fa-location-dot"></i>
+          <input type="text" id="pickup" placeholder="Pickup Location" readonly>
+        </div>
+
+        <div class="form-group full">
+          <i class="fa fa-flag-checkered"></i>
+          <input type="text" id="drop" placeholder="Drop Location" readonly>
+        </div>
+
+        <div class="form-group full">
+          <i class="fa fa-calendar"></i>
+          <input type="date" id="travel_date" required>
+        </div>
+
+        <div class="form-group full">
+          <i class="fa fa-car"></i>
+          <select id="car" required>
+            <option value="">Select Car Type</option>
+            <option>Sedan</option>
+            <option>Etios</option>
+            <option>Ertiga</option>
+            <option>Innova</option>
+            <option>Innova Crysta</option>
+            <option>Innova Hycross</option>
+            <option>Tempo Traveller</option>
+            <option>Fortuner</option>
+          </select>
+        </div>
+
+      </div>
+
+      <button class="send-btn" id="confirmBtn">
+        <i class="fa fa-whatsapp"></i> Confirm & WhatsApp
+      </button>
+
+      <a href="index.html" class="back-link">← Back to Home</a>
+
+
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  © 2026 Travel Nest Cabs • Fast & Smart Online Booking
+</footer>
+
+<!-- ================= SCRIPT ================= -->
+
+<script>
+/* ===== AUTO-FILL PICKUP & DROP ===== */
+const params = new URLSearchParams(window.location.search);
+document.getElementById("pickup").value = params.get("pickup") || "";
+document.getElementById("drop").value   = params.get("drop") || "";
+</script>
+
+<script>
+document.getElementById("confirmBtn").addEventListener("click", async function () {
+
+  const data = {
+    name: document.getElementById("name").value.trim(),
+    phone: document.getElementById("phone").value.trim(),
+    pickup: document.getElementById("pickup").value,
+    drop: document.getElementById("drop").value,
+    travel_date: document.getElementById("travel_date").value,
+    car: document.getElementById("car").value
+  };
+
+  if (!data.name || !data.phone || !data.travel_date || !data.car) {
+    alert("Please fill all details");
+    return;
+  }
+
+  /* SAVE TO BACKEND (NON-BLOCKING) */
+  try {
+    await fetch("https://travelnest-backend-p13p.onrender.com/api/bookings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+  } catch (e) {
+    console.warn("Backend not reachable");
+  }
+
+  /* WHATSAPP MESSAGE */
+  const message = `🚖 New Cab Booking
+
+👤 Name: ${data.name}
+📞 Phone: ${data.phone}
+📍 Pickup: ${data.pickup}
+🏁 Drop: ${data.drop}
+📅 Date: ${data.travel_date}
+🚘 Car: ${data.car}`;
+
+  window.open(
+    "https://wa.me/919535489504?text=" + encodeURIComponent(message),
+    "_blank"
+  );
+});
+</script>
+
+</body>
+</html>

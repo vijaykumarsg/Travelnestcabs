@@ -1,0 +1,463 @@
+/* ===== RESET ===== */
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+}
+
+/* ================= LOGIN PAGE ================= */
+.login-page {
+  display: flex;
+  height: 100vh;
+  background: url("../css/login_bg.jpg") no-repeat center center/cover;
+  color: white;
+}
+
+/* LEFT SIDE */
+.login-left {
+  flex: 1;
+  padding: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-left h1 {
+  font-size: 46px;
+  margin-bottom: 20px;
+}
+
+.login-left span {
+  color: #ffd700;
+}
+
+.login-left p {
+  font-size: 16px;
+  max-width: 480px;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+/* RIGHT SIDE */
+.login-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ================= LOGIN CARD (NO BACKGROUND) ================= */
+.login-card {
+  background: transparent;
+  color: #ffffff;
+  width: 360px;
+  padding: 35px;
+  text-align: center;
+  border: none;
+  box-shadow: none;
+}
+
+.login-card h2 {
+  margin-bottom: 25px;
+  color: #ffffff;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.45);
+}
+
+/* INPUTS – WHITE REMOVED */
+.login-card input {
+  width: 100%;
+  padding: 14px 12px;
+  margin-bottom: 18px;
+  background: transparent !important;
+  color: #ffffff !important;
+  border: none;
+  border-bottom: 2px solid rgba(255,255,255,0.7);
+  font-size: 15px;
+  outline: none;
+  box-shadow: none;
+}
+
+.login-card input::placeholder {
+  color: rgba(255,255,255,0.8);
+}
+
+.login-card input:focus {
+  border-bottom-color: #ffffff;
+}
+
+/* REMOVE CHROME AUTOFILL WHITE */
+.login-card input:-webkit-autofill,
+.login-card input:-webkit-autofill:hover,
+.login-card input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* BUTTON */
+.login-card button {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #1a4fff, #6a5cff);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.login-card button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.55);
+}
+
+/* ================= DASHBOARD ================= */
+#dashboard {
+  display: none;
+  min-height: 100vh;
+  background: url("../css/bbg.png") no-repeat center center;
+  background-size: cover;
+}
+
+/* HEADER – MATCHED WITH BACKGROUND */
+header {
+  background: linear-gradient(135deg, #1a4fff, #6a5cff);
+  color: #ffffff;
+  padding: 18px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+header h1 {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* SECTION – NO CARD, JUST SPACING */
+section {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 0;
+  background: transparent;
+}
+
+/* TITLE */
+h2 {
+  text-align: center;
+  color: #0d6efd;
+  margin-bottom: 20px;
+}
+
+/* ================= TABLE ================= */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(240, 246, 255, 0.92);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
+
+/* TABLE HEADER */
+thead {
+  background: linear-gradient(135deg, #1a4fff, #6a5cff);
+  color: white;
+}
+
+th {
+  font-weight: 600;
+}
+
+/* TABLE CELLS */
+th, td {
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 12px;
+  text-align: center;
+}
+
+/* ROW STYLES */
+tbody tr {
+  background: rgba(255,255,255,0.75);
+}
+
+tbody tr:nth-child(even) {
+  background: rgba(220, 230, 255, 0.9);
+}
+
+tbody tr:hover {
+  background: rgba(26, 79, 255, 0.18);
+}
+
+/* STATUS DROPDOWN */
+select {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #f8fbff;
+}
+
+/* WhatsApp Button */
+.wa-btn {
+  background: #25D366;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.wa-btn:hover {
+  opacity: 0.9;
+}
+
+
+
+/* ================= MOBILE & TABLET FIX ================= */
+@media (max-width: 768px) {
+
+  /* ---------- LOGIN PAGE ---------- */
+  .login-page {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .login-left {
+    padding: 40px 20px;
+    text-align: center;
+    align-items: center;
+  }
+
+  .login-left h1 {
+    font-size: 32px;
+  }
+
+  .login-left p {
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .login-right {
+    padding: 20px 0 40px;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 360px;
+    padding: 30px 20px;
+  }
+
+  .login-card h2 {
+    font-size: 22px;
+  }
+
+  .login-card input {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .login-card button {
+    padding: 13px;
+    font-size: 14px;
+  }
+
+  /* ---------- DASHBOARD ---------- */
+  header h1 {
+    font-size: 20px;
+  }
+
+  section {
+    margin: 15px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  /* ---------- TABLE RESPONSIVE ---------- */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 13px;
+  }
+
+  th, td {
+    padding: 10px 8px;
+  }
+
+  /* ---------- BUTTONS ---------- */
+  .wa-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  select {
+    font-size: 12px;
+    padding: 5px;
+  }
+}
+
+/* ================= SMALL MOBILE (VERY SMALL PHONES) ================= */
+@media (max-width: 480px) {
+
+  .login-left h1 {
+    font-size: 26px;
+  }
+
+  .login-left p {
+    font-size: 13px;
+  }
+
+  .login-card h2 {
+    font-size: 20px;
+  }
+
+  header {
+    padding: 14px;
+  }
+
+  header h1 {
+    font-size: 18px;
+  }
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+@media (max-width: 768px) {
+
+  /* LOGIN PAGE */
+  .login-page {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .login-left {
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .login-left h1 {
+    font-size: 28px;
+  }
+
+  .login-left p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .login-right {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 360px;
+    padding: 25px;
+  }
+
+  .login-card input,
+  .login-card button {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  /* DASHBOARD */
+  #dashboard {
+    padding: 10px;
+  }
+
+  header h1 {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  section h2 {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  /* TABLE RESPONSIVE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  table thead {
+    display: none; /* hide headers on mobile */
+  }
+
+  table tbody tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background: #fff;
+  }
+
+  table tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 6px;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+  }
+
+  table tbody td:last-child {
+    border-bottom: none;
+  }
+
+  table tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #333;
+  }
+
+  select {
+    width: 100%;
+    padding: 6px;
+    font-size: 14px;
+  }
+
+  .wa-btn {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.filter-bar input,
+.filter-bar button {
+  padding: 8px 10px;
+  font-size: 14px;
+}
+
+.filter-bar button {
+  background: #0a3d91;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.filter-bar button:hover {
+  opacity: 0.9;
+}
