@@ -11,6 +11,21 @@
 /assets/*               /customer/assets/:splat 200
 
 ############################
+# STATIC ASSETS (DRIVER)
+############################
+/driver/css/*           /driver/css/:splat 200
+/driver/js/*            /driver/js/:splat 200
+/driver/images/*        /driver/images/:splat 200
+
+############################
+# STATIC ASSETS (ADMIN)
+############################
+/admin/css/*            /admin/css/:splat 200
+/admin/js/*             /admin/js/:splat 200
+/admin/images/*         /admin/images/:splat 200
+
+
+############################
 # CUSTOMER PAGES (CLEAN URLS)
 ############################
 /local                  /customer/pages/local.html 200
