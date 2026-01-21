@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Driver Dashboard - TravelNestCabs</title>
-<link rel="stylesheet" href="../css/driver_dashboard.css">
+<link rel="stylesheet" href="/frontend/driver/css/driver_dashboard.css">
 
 <style>
 .top{
@@ -62,85 +62,9 @@
 </div>
 </div>
 
-<!-- ================= SCRIPT ================= -->
-<script>
-const API = "http://127.0.0.1:9000";
-
-/*
-  TEMPORARY:
-  Later this will come from login
-*/
-const DRIVER_ID = localStorage.getItem("driver_id") || 1;
 
 
-// ---------------- LOAD PROFILE ----------------
-async function loadProfile() {
-  const res = await fetch(`${API}/api/driver/profile/${DRIVER_ID}`);
-  const data = await res.json();
-
-  document.getElementById("driverName").innerText = data.name;
-
-  const statusEl = document.getElementById("driverStatus");
-  statusEl.innerText = data.status;
-
-  statusEl.className = "status " +
-    (data.status === "APPROVED" ? "approved" : "pending");
-}
-
-
-// ---------------- LOAD WALLET ----------------
-async function loadWallet() {
-  const res = await fetch(`${API}/api/wallet/${DRIVER_ID}`);
-  const data = await res.json();
-
-  document.getElementById("walletBalance").innerText = data.balance;
-}
-
-
-// ---------------- LOAD TRIPS ----------------
-async function loadTrips() {
-  const res = await fetch(`${API}/api/driver/trips/${DRIVER_ID}`);
-  const trips = await res.json();
-
-  const container = document.getElementById("tripList");
-  container.innerHTML = "";
-
-  if (!trips.length) {
-    container.innerHTML = `<div class="card">No trips assigned</div>`;
-    return;
-  }
-
-  trips.forEach(t => {
-    container.innerHTML += `
-      <div class="card">
-        <p><b>Booking ID:</b> ${t.booking_number}</p>
-        <p><b>Pickup:</b> ${t.pickup}</p>
-        <p><b>Drop:</b> ${t.drop}</p>
-        <p><b>Fare:</b> ₹${t.fare}</p>
-        <p><b>Status:</b> ${t.status}</p>
-        <button class="btn">Start Trip</button>
-      </div>
-    `;
-  });
-}
-
-
-// ---------------- INIT ----------------
-loadProfile();
-loadWallet();
-loadTrips();
-</script>
-
-
-<script>
-function logout() {
-  // remove stored driver session
-  localStorage.removeItem("driver_id");
-
-  // redirect to login page
-  window.location.href = "driver_login.html";
-}
-</script>
+<script src="/frontend/driver/js/driver.js"></script>
 
 </body>
 </html>

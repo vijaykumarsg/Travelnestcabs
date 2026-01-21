@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Verify Drivers - TravelNestCabs</title>
-<link rel="stylesheet" href="../css/driver_ver.css">
+<link rel="stylesheet" href="/frontend/driver/css/driver_ver.css">
 
 <style>
 .table{
@@ -54,52 +54,7 @@
 </div>
 
 
-<script>
-const API = "http://127.0.0.1:9000";
-
-async function loadDrivers() {
-  const res = await fetch(`${API}/api/driver/admin/drivers`);
-  const drivers = await res.json();
-
-  const table = document.getElementById("driverTable");
-  table.innerHTML = "";
-
-  drivers.forEach(d => {
-    table.innerHTML += `
-      <tr>
-        <td>${d.name}</td>
-        <td>${d.phone}</td>
-        <td>${d.licence_no}</td>
-        <td>${d.vehicle_no}</td>
-        <td>${d.status}</td>
-        <td class="action">
-          <button class="btn" style="width:80px;background:green"
-            onclick="approve(${d.id})">Approve</button>
-
-          <button class="btn" style="width:70px;background:red"
-            onclick="reject(${d.id})">Reject</button>
-        </td>
-      </tr>
-    `;
-  });
-}
-
-async function approve(id) {
-  await fetch(`${API}/api/driver/admin/driver/${id}/approve`, {
-    method: "PUT"
-  });
-  loadDrivers();
-}
-
-async function reject(id) {
-  await fetch(`${API}/api/driver/admin/driver/${id}/reject`, {
-    method: "PUT"
-  });
-  loadDrivers();
-}
-
-loadDrivers();
-</script>
+<script src="/frontend/driver/js/driver.js"></script>
 
 </body>
 </html>

@@ -1,33 +1,33 @@
 ############################
-# ROOT → CUSTOMER INDEX
+# ROOT
 ############################
-/                       /customer/pages/index.html 200
+/                       /index.html 200
 
 ############################
-# STATIC ASSETS (DO NOT REMOVE)
+# CUSTOMER STATIC ASSETS
 ############################
 /css/*                  /customer/css/:splat 200
 /js/*                   /customer/js/:splat 200
 /assets/*               /customer/assets/:splat 200
 
 ############################
-# STATIC ASSETS (DRIVER)
+# DRIVER STATIC ASSETS
 ############################
 /driver/css/*           /driver/css/:splat 200
 /driver/js/*            /driver/js/:splat 200
 /driver/images/*        /driver/images/:splat 200
 
 ############################
-# STATIC ASSETS (ADMIN)
+# ADMIN STATIC ASSETS
 ############################
 /admin/css/*            /admin/css/:splat 200
 /admin/js/*             /admin/js/:splat 200
 /admin/images/*         /admin/images/:splat 200
 
-
 ############################
 # CUSTOMER PAGES (CLEAN URLS)
 ############################
+/airport                /customer/pages/airport.html 200
 /local                  /customer/pages/local.html 200
 /oneway                 /customer/pages/oneway.html 200
 /outstation             /customer/pages/outstation.html 200
@@ -37,7 +37,7 @@
 /customer/*             /customer/:splat 200
 
 ############################
-# DRIVER MODULE (FULL)
+# DRIVER MODULE
 ############################
 /driver                 /driver/pages/driver_login.html 200
 /driver/login           /driver/pages/driver_login.html 200

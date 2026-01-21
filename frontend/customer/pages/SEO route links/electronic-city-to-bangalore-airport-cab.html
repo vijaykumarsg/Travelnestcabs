@@ -9,7 +9,7 @@
 <meta name="description"
 content="Book Electronic City to Bangalore Airport cab. Comfortable airport taxi with verified drivers, fixed fares and 24x7 availability.">
 
-<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="/frontend/customer/css/style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
@@ -36,16 +36,18 @@ content="Book Electronic City to Bangalore Airport cab. Comfortable airport taxi
 <header class="site-header">
   <div class="header-inner">
     <div class="logo">
-      <img src="../../assets/images/lastlogomain.png" alt="Travel Nest Cabs">
+      <!-- FIX 1: image extension -->
+      <img src="/frontend/assets/images/lastlogomain.png" alt="Travel Nest Cabs">
     </div>
 
     <div class="hamburger">&#9776;</div>
 
+    <!-- FIX 2: correct folder depth -->
     <nav class="main-nav">
-      <a href="../index.html">Airport</a>
-      <a href="../local.html">Local</a>
-      <a href="../outstation.html">Outstation</a>
-      <a href="../oneway.html">One Way</a>
+      <a href="/frontend/customer/pages/airport.html">Airport</a>
+      <a href="/frontend/customer/pages/local.html">Local</a>
+      <a href="/frontend/customer/pages/outstation.html">Outstation</a>
+      <a href="/frontend/customer/pages/oneway.html">One Way</a>
     </nav>
   </div>
 </header>
@@ -94,12 +96,7 @@ content="Book Electronic City to Bangalore Airport cab. Comfortable airport taxi
 </section>
 
 <footer>© 2025 Travel Nest Cabs</footer>
-
-<script>
-const hamburger=document.querySelector('.hamburger');
-const nav=document.querySelector('.main-nav');
-hamburger.addEventListener('click',()=>nav.classList.toggle('active'));
-</script>
+<script src="/frontend/customer/js/seo.js"></script>
 
 </body>
 </html>
