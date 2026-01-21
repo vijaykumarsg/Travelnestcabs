@@ -1,40 +1,17 @@
 ############################
 # ROOT
 ############################
-/                       /index.html 200
+/            /index.html 200
 
 ############################
-# CUSTOMER STATIC ASSETS
+# CUSTOMER PAGES
 ############################
-/css/*                  /customer/css/:splat 200
-/js/*                   /customer/js/:splat 200
-/assets/*               /customer/assets/:splat 200
-
-############################
-# DRIVER STATIC ASSETS
-############################
-/driver/css/*           /driver/css/:splat 200
-/driver/js/*            /driver/js/:splat 200
-/driver/images/*        /driver/images/:splat 200
-
-############################
-# ADMIN STATIC ASSETS
-############################
-/admin/css/*            /admin/css/:splat 200
-/admin/js/*             /admin/js/:splat 200
-/admin/images/*         /admin/images/:splat 200
-
-############################
-# CUSTOMER PAGES (CLEAN URLS)
-############################
-/airport                /customer/pages/airport.html 200
-/local                  /customer/pages/local.html 200
-/oneway                 /customer/pages/oneway.html 200
-/outstation             /customer/pages/outstation.html 200
-/helpline               /customer/pages/helpline.html 200
-/seo-booking            /customer/pages/seo_page_booking.html 200
-
-/customer/*             /customer/:splat 200
+/airport        /customer/pages/airport.html 200
+/local          /customer/pages/local.html 200
+/oneway         /customer/pages/oneway.html 200
+/outstation     /customer/pages/outstation.html 200
+/helpline       /customer/pages/helpline.html 200
+/seo-booking    /customer/pages/seo_page_booking.html 200
 
 ############################
 # DRIVER MODULE
@@ -45,12 +22,8 @@
 /driver/dashboard       /driver/pages/driver_dashboard.html 200
 /driver/admin-verify    /driver/pages/admin_verify_driver.html 200
 
-/driver/*               /driver/:splat 200
-
 ############################
 # ADMIN MODULE
 ############################
 /admin                  /admin/pages/admin.html 200
 /admin/dashboard        /admin/pages/admin.html 200
-
-/admin/*                /admin/:splat 200

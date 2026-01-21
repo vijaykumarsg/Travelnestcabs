@@ -139,7 +139,7 @@ async function loadTrips() {
 
 function logout() {
   localStorage.removeItem("driver_id");
-  window.location.href = "/frontend/driver/pages/driver_login.html";
+  window.location.href = "/driver/pages/driver_login.html";
 }
 
 /* ================= INIT ================= */

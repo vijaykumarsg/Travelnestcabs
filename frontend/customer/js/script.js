@@ -44,7 +44,7 @@ function closeMenu() {
 /* ================= BOOKING REDIRECT ================= */
 
 function redirectBooking(trip, car, fare) {
-  const url = `/frontend/customer/pages/booking.html?trip=${encodeURIComponent(
+  const url = `/customer/pages/booking.html?trip=${encodeURIComponent(
     trip
   )}&car=${encodeURIComponent(car)}&fare=${encodeURIComponent(fare)}`;
   window.location.href = url;
