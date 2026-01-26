@@ -283,7 +283,7 @@ def open_invoice_file(booking_id: int, db: Session = Depends(get_db)):
 
 
 
-("/api/admin/bookings/{booking_id}/assign-driver/{driver_id}")
+@app.put("/api/admin/bookings/{booking_id}/assign-driver/{driver_id}")
 def assign_driver(
     booking_id: int,
     driver_id: int,
@@ -299,10 +299,10 @@ def assign_driver(
 
     return {"message": "Driver assigned to booking"}
 
+
 from app.drivers.routes import router as driver_router
 app.include_router(driver_router)
 
 
 from app.wallets.routes import router as wallet_router
 app.include_router(wallet_router)
-@app.put
