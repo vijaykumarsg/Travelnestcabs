@@ -210,12 +210,14 @@ def update_booking_status(
     if not booking:
         raise HTTPException(status_code=404, detail="Booking not found")
 
-    booking.status = data.status
-    db.commit()
+    # ✅ normalize status
+    new_status = data.status.strip().upper()
+    booking.status = new_status
 
     whatsapp_link = None
 
-    if data.status == "COMPLETED":
+    # ✅ invoice generation trigger
+    if new_status == "COMPLETED":
         invoice = db.query(Invoice).filter(
             Invoice.booking_id == booking_id
         ).first()
@@ -224,10 +226,9 @@ def update_booking_status(
             base = booking.price
             gst = round(base * 0.05, 2)
             total = base + gst
-            invoice_no = booking.booking_number
 
             pdf_path = generate_invoice({
-                "invoice_no": invoice_no,
+                "invoice_no": booking.booking_number,
                 "customer_name": booking.name,
                 "pickup": booking.pickup,
                 "drop": booking.drop,
@@ -240,7 +241,7 @@ def update_booking_status(
 
             invoice = Invoice(
                 booking_id=booking.id,
-                invoice_no=invoice_no,
+                invoice_no=booking.booking_number,
                 base_amount=base,
                 gst_amount=gst,
                 total_amount=total,
@@ -249,19 +250,18 @@ def update_booking_status(
             )
 
             db.add(invoice)
-            booking.status = "INVOICED"
-            db.commit()
 
-            invoice_url = f"{get_base_url()}/api/invoice/file/{booking_id}"
-            whatsapp_link = generate_whatsapp_link(
-                booking.phone,
-                invoice_url
-            )
+            # ✅ final status after invoice creation
+            booking.status = "INVOICED"
+
+    # ✅ single commit at the end
+    db.commit()
 
     return {
         "message": "Booking status updated",
         "whatsapp_link": whatsapp_link
     }
+
 
 @app.get("/api/invoice/file/{booking_id}")
 def open_invoice_file(booking_id: int, db: Session = Depends(get_db)):
@@ -283,7 +283,7 @@ def open_invoice_file(booking_id: int, db: Session = Depends(get_db)):
 
 
 
-@app.put("/api/admin/bookings/{booking_id}/assign-driver/{driver_id}")
+("/api/admin/bookings/{booking_id}/assign-driver/{driver_id}")
 def assign_driver(
     booking_id: int,
     driver_id: int,
@@ -305,3 +305,4 @@ app.include_router(driver_router)
 
 from app.wallets.routes import router as wallet_router
 app.include_router(wallet_router)
+@app.put
