@@ -237,23 +237,11 @@ def open_invoice_file(booking_id: int, db: Session = Depends(get_db)):
         filename=os.path.basename(full_path)
     )
 
-# ===============================
-# DRIVER / WALLET ROUTES (UNCHANGED)
-# ===============================
-from app.drivers.routes import router as driver_router
-app.include_router(driver_router)
-
-from app.wallets.routes import router as wallet_router
-app.include_router(wallet_router)
-
-
 @app.post("/api/invoice/resend-whatsapp/{booking_id}")
 def resend_invoice_whatsapp(
     booking_id: int,
-    db: Session = Depends(get_db),
-    admin: Admin = Depends(get_current_admin)
+    db: Session = Depends(get_db)
 ):
-
     invoice = db.query(Invoice).filter(
         Invoice.booking_id == booking_id
     ).first()
@@ -268,7 +256,6 @@ def resend_invoice_whatsapp(
     if not booking:
         raise HTTPException(status_code=404, detail="Booking not found")
 
-    # IMPORTANT: public invoice URL
     invoice_url = f"{get_base_url()}/api/invoice/file/{booking_id}"
 
     whatsapp_link = generate_whatsapp_link(
@@ -277,3 +264,15 @@ def resend_invoice_whatsapp(
     )
 
     return {"whatsapp_link": whatsapp_link}
+
+# ===============================
+# DRIVER / WALLET ROUTES (UNCHANGED)
+# ===============================
+from app.drivers.routes import router as driver_router
+app.include_router(driver_router)
+
+from app.wallets.routes import router as wallet_router
+app.include_router(wallet_router)
+
+
+
