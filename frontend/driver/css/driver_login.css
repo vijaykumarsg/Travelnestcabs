@@ -16,7 +16,7 @@ body{
   padding-right:80px;
 
   background:
-    url("../images/driver_login.png") center/cover no-repeat;
+    url("/driver/images/driver_login.png") center/cover no-repeat;
 }
 
 /* TRANSPARENT LOGIN CARD */
@@ -115,4 +115,16 @@ input:focus{
     width:100%;
     max-width:380px;
   }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

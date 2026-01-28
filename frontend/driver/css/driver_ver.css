@@ -16,7 +16,7 @@ html, body {
 }
 
 body {
-  background: url("../images/ref.png") no-repeat center center fixed;
+  background: url("/driver/images/ref.png") no-repeat center center fixed;
   background-size: cover;
   position: relative;
 }

@@ -15,7 +15,7 @@ body{
   align-items:flex-start;
   padding:120px 60px;
   background:
-    url("../images/reg_driver.png") center/cover no-repeat;
+    url("/driver/images/reg_driver.png") center/cover no-repeat;
   color:white;
 }
 
@@ -155,4 +155,15 @@ input:focus{
     max-width:420px;
     margin:auto;
   }
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

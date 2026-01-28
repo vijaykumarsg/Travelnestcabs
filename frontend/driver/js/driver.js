@@ -3,9 +3,10 @@
 /* ================= API CONFIG ================= */
 
 const API_BASE_URL =
-  location.hostname === "localhost"
-    ? "http://127.0.0.1:9000"
+  location.hostname === "localhost" || location.hostname === "127.0.0.1"
+    ? "http://127.0.0.1:8000"
     : "https://travelnest-backend-p13p.onrender.com";
+
 
 /* ================= DRIVER SESSION ================= */
 

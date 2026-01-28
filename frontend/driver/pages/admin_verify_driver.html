@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Verify Drivers - TravelNestCabs</title>
+
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+
+<title>Admin – Driver Verification | Travel Nest Cabs</title>
+
 <link rel="stylesheet" href="/driver/css/driver_ver.css">
 
 <style>
@@ -27,32 +32,29 @@
 <body>
 
 <div class="container">
+  <div class="reg-card" style="width:800px">
 
-<div class="reg-card" style="width:800px">
+    <h2>Driver Verification</h2>
 
-<h2>Driver Verification</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>DL No</th>
+          <th>Vehicle</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Phone</th>
-      <th>DL No</th>
-      <th>Vehicle</th>
-      <th>Status</th>
-      <th>Action</th>
-    </tr>
-  </thead>
+      <tbody id="driverTable">
+        <!-- drivers will be inserted here by JS -->
+      </tbody>
+    </table>
 
-  <tbody id="driverTable">
-    <!-- drivers will be inserted here by JS -->
-  </tbody>
-</table>
-
-
+  </div>
 </div>
-</div>
-
 
 <script src="/driver/js/driver.js"></script>
 

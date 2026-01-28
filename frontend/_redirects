@@ -12,6 +12,7 @@
 /outstation     /customer/pages/outstation.html 200
 /helpline       /customer/pages/helpline.html 200
 /seo-booking    /customer/pages/seo_page_booking.html 200
+/airport-taxi-bengaluru   /customer/pages/geo/airport-taxi-bengaluru.html 200
 
 ############################
 # DRIVER MODULE
