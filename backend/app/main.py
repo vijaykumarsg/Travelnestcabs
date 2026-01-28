@@ -250,8 +250,10 @@ app.include_router(wallet_router)
 @app.post("/api/invoice/resend-whatsapp/{booking_id}")
 def resend_invoice_whatsapp(
     booking_id: int,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    admin: Admin = Depends(get_current_admin)
 ):
+
     invoice = db.query(Invoice).filter(
         Invoice.booking_id == booking_id
     ).first()
