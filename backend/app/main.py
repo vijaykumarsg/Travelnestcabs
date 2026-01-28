@@ -225,3 +225,79 @@ def open_invoice_file(
         media_type="application/pdf",
         filename=os.path.basename(invoice.pdf_path)
     )
+
+@app.post("/api/invoice/resend-whatsapp/{booking_id}")
+def resend_invoice_whatsapp(
+    booking_id: int,
+    db: Session = Depends(get_db)
+):
+    invoice = db.query(Invoice).filter(
+        Invoice.booking_id == booking_id
+    ).first()
+
+    if not invoice:
+        raise HTTPException(status_code=404, detail="Invoice not found")
+
+    booking = db.query(Booking).filter(
+        Booking.id == booking_id
+    ).first()
+
+    if not booking:
+        raise HTTPException(status_code=404, detail="Booking not found")
+
+    base_url = "https://travelnestcabs-2.onrender.com"
+    invoice_url = f"{base_url}/{invoice.pdf_path}"
+
+    message = (
+        f"🚖 Travel Nest Cabs Invoice\n\n"
+        f"Booking No: {booking.booking_number}\n"
+        f"Name: {booking.name}\n"
+        f"Route: {booking.pickup} → {booking.drop}\n"
+        f"Amount: ₹{invoice.total_amount}\n\n"
+        f"📄 Download Invoice:\n{invoice_url}"
+    )
+
+    whatsapp_link = (
+        "https://wa.me/91" + booking.phone +
+        "?text=" + message.replace(" ", "%20").replace("\n", "%0A")
+    )
+
+    return {"whatsapp_link": whatsapp_link}
+
+@app.post("/api/invoice/resend-whatsapp/{booking_id}")
+def resend_invoice_whatsapp(
+    booking_id: int,
+    db: Session = Depends(get_db)
+):
+    invoice = db.query(Invoice).filter(
+        Invoice.booking_id == booking_id
+    ).first()
+
+    if not invoice:
+        raise HTTPException(status_code=404, detail="Invoice not found")
+
+    booking = db.query(Booking).filter(
+        Booking.id == booking_id
+    ).first()
+
+    if not booking:
+        raise HTTPException(status_code=404, detail="Booking not found")
+
+    base_url = "https://travelnestcabs-2.onrender.com"
+    invoice_url = f"{base_url}/{invoice.pdf_path}"
+
+    message = (
+        f"🚖 Travel Nest Cabs Invoice\n\n"
+        f"Booking No: {booking.booking_number}\n"
+        f"Name: {booking.name}\n"
+        f"Route: {booking.pickup} → {booking.drop}\n"
+        f"Amount: ₹{invoice.total_amount}\n\n"
+        f"📄 Download Invoice:\n{invoice_url}"
+    )
+
+    whatsapp_link = (
+        "https://wa.me/91" + booking.phone +
+        "?text=" + message.replace(" ", "%20").replace("\n", "%0A")
+    )
+
+    return {"whatsapp_link": whatsapp_link}
