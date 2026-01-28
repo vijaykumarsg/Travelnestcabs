@@ -207,7 +207,7 @@ def update_booking_status(
             booking.status = "INVOICED"
             db.commit()
 
-        invoice_url = f"{get_base_url()}/{invoice.pdf_path}"
+        invoice_url = f"{get_base_url()}/api/invoice/file/{booking_id}"
         whatsapp_link = generate_whatsapp_link(
             booking.phone,
             invoice_url
@@ -267,7 +267,7 @@ def resend_invoice_whatsapp(
         raise HTTPException(status_code=404, detail="Booking not found")
 
     # IMPORTANT: public invoice URL
-    invoice_url = f"{get_base_url()}/{invoice.pdf_path}"
+    invoice_url = f"{get_base_url()}/api/invoice/file/{booking_id}"
 
     whatsapp_link = generate_whatsapp_link(
         booking.phone,
