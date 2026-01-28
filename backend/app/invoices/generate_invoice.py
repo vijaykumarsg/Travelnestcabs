@@ -1,37 +1,32 @@
+import os
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
-import os
 from datetime import datetime
 
 
-def generate_invoice(data: dict):
+def generate_invoice(data: dict) -> str:
     """
     Generates GST Invoice PDF
-    Returns file path
+    Returns ABSOLUTE file path (Render-safe)
     """
 
     # ----------------------------------------------------
-    # ✅ ONLY THIS SECTION UPDATED – indentation & paths
+    # ✅ CORRECT, SINGLE invoices DIRECTORY
     # ----------------------------------------------------
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    invoice_dir = os.path.join(BASE_DIR, "invoices")
+    INVOICE_DIR = BASE_DIR   # app/invoices/
 
-    if not os.path.exists(invoice_dir):
-        os.makedirs(invoice_dir)
+    os.makedirs(INVOICE_DIR, exist_ok=True)
 
     invoice_no = data["invoice_no"]
+    filename = f"{invoice_no}.pdf"
 
-    # Full system path for writing the file
-    file_path = os.path.join(invoice_dir, f"{invoice_no}.pdf")
-
-    # Path stored in DB and used by StaticFiles
-    return_path = f"invoices/{invoice_no}.pdf"
+    # ✅ ABSOLUTE PATH (this is critical)
+    file_path = os.path.join(INVOICE_DIR, filename)
     # ----------------------------------------------------
-
 
     c = canvas.Canvas(file_path, pagesize=A4)
     width, height = A4
-
     y = height - 50
 
     # -------------------
@@ -72,7 +67,7 @@ def generate_invoice(data: dict):
     c.setFont("Helvetica", 10)
     c.drawString(50, y, f"Customer Name: {data['customer_name']}")
     y -= 15
-    c.drawString(50, y, f"Route: {data['pickup']}  →  {data['drop']}")
+    c.drawString(50, y, f"Route: {data['pickup']} → {data['drop']}")
     y -= 15
     c.drawString(50, y, f"Vehicle: {data['car']}")
     y -= 15
@@ -88,7 +83,7 @@ def generate_invoice(data: dict):
 
     y -= 20
     c.setFont("Helvetica", 10)
-    c.drawString(50, y, f"Base Fare:")
+    c.drawString(50, y, "Base Fare:")
     c.drawRightString(width - 50, y, f"₹ {data['base_amount']:.2f}")
 
     y -= 15
@@ -115,6 +110,7 @@ def generate_invoice(data: dict):
     c.showPage()
     c.save()
 
-    print("INVOICE SAVED AT:", file_path)
+    print("✅ INVOICE SAVED AT:", file_path)
 
-    return return_path
+    # ✅ RETURN ABSOLUTE PATH (THIS FIXES EVERYTHING)
+    return file_path
