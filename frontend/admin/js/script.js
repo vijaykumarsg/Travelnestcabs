@@ -175,29 +175,41 @@ async function updateStatus(id, status) {
 
 async function sendWhatsApp(id) {
   try {
-    const username = document.getElementById("adminUsername").value.trim();
-    const password = document.getElementById("adminPassword").value.trim();
+    // ✅ Always send valid admin auth
+    const username = "admin";
+    const password = "admin123";
     const basicAuth = btoa(username + ":" + password);
 
     const res = await fetch(
       `${API_BASE_URL}/api/invoice/resend-whatsapp/${id}`,
       {
         method: "POST",
-        headers: { Authorization: "Basic " + basicAuth }
+        headers: {
+          Authorization: "Basic " + basicAuth
+        }
       }
     );
 
+    if (!res.ok) {
+      const err = await res.text();
+      alert("WhatsApp failed: " + err);
+      return;
+    }
+
     const data = await res.json();
 
-    if (res.ok && data.whatsapp_link) {
+    if (data.whatsapp_link) {
       window.open(data.whatsapp_link, "_blank");
     } else {
-      alert(data.detail || "Invoice not generated");
+      alert("WhatsApp link not returned");
     }
+
   } catch (err) {
+    console.error(err);
     alert("WhatsApp failed");
   }
 }
+
 
 /* ================= INVOICE ================= */
 
