@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Travelnest Invoice Generator</title>
+
+<link rel="stylesheet" href="../css/invoice.css">
+
+</head>
+
+<body>
+
+<h2>Travelnest Cabs Invoice</h2>
+
+<p><b>GSTIN:</b> 29BMPPJ8418M1Z6</p>
+
+<form id="invoiceForm">
+
+Customer Name
+<input type="text" id="customer">
+
+Service Type
+<select id="service">
+<option>Airport Pickup</option>
+<option>Airport Drop</option>
+<option>Outstation</option>
+<option>Local</option>
+</select>
+
+Car Type
+<select id="car">
+<option>Sedan</option>
+<option>SUV</option>
+<option>Hatchback</option>
+<option>Innova</option>
+<option>Innova Crysta</option>
+</select>
+
+Pickup
+<input type="text" id="pickup">
+
+Drop
+<input type="text" id="drop">
+
+Cab Fare
+<input type="number" id="fare">
+
+Toll
+<input type="number" id="toll">
+
+Parking
+<input type="number" id="parking">
+
+<button type="submit">Generate Invoice</button>
+
+</form>
+
+<script src="/admin/js/script.js"></script>
+
+<script>
+"use strict";
+
+/* ================= MANUAL INVOICE GENERATOR ================= */
+
+const API_BASE_URL = "https://travelnestcabs-2.onrender.com";
+
+document.getElementById("invoiceForm")?.addEventListener("submit", async function(e){
+
+e.preventDefault();
+
+const data = {
+
+customer: document.getElementById("customer").value,
+service: document.getElementById("service").value,
+car: document.getElementById("car").value,
+pickup: document.getElementById("pickup").value,
+drop: document.getElementById("drop").value,
+fare: Number(document.getElementById("fare").value),
+toll: Number(document.getElementById("toll").value),
+parking: Number(document.getElementById("parking").value)
+
+};
+
+try{
+
+const res = await fetch(`${API_BASE_URL}/invoices/generate`,{
+
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body: JSON.stringify(data)
+
+});
+
+if(!res.ok){
+alert("Invoice generation failed");
+return;
+}
+
+const blob = await res.blob();
+const url = window.URL.createObjectURL(blob);
+
+const a = document.createElement("a");
+a.href = url;
+a.download = "invoice.pdf";
+document.body.appendChild(a);
+a.click();
+document.body.removeChild(a);
+
+URL.revokeObjectURL(url);
+
+}catch(err){
+
+console.error(err);
+alert("Invoice generation error");
+
+}
+
+});
+</script>
+
+</body>
+</html>

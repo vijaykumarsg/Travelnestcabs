@@ -35,40 +35,7 @@ async function sendBooking() {
     return;
   }
 
-  if (!selectedTrip || !selectedCar) {
-    alert("Please select a cab first");
-    return;
-  }
-
-  const bookingPayload = {
-    name,
-    phone,
-    pickup,
-    drop,
-    trip_type: selectedTrip,
-    car: selectedCar,
-    price: parseFloat(selectedPrice) || 0,
-    travel_date: date,
-    travel_time: time
-  };
-
-  try {
-    const res = await fetch(`${API_BASE_URL}/api/bookings`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(bookingPayload)
-    });
-
-    const data = await res.json();
-    if (!res.ok) {
-        alert("SERVER RESPONSE:\n" + JSON.stringify(data, null, 2));
-        throw data;
-}
-
-
-    alert("✅ Booking submitted successfully!");
-
-    const whatsappMsg = `🚖 New Cab Booking
+  const whatsappMsg = `🚖 New Cab Booking
 
 Trip: ${selectedTrip}
 Car: ${selectedCar}
@@ -81,14 +48,8 @@ Fare: ₹${selectedPrice}
 📅 ${date}
 ⏰ ${time}`;
 
-    window.open(
-      "https://wa.me/" + OWNER_PHONE +
-      "?text=" + encodeURIComponent(whatsappMsg),
-      "_blank"
-    );
-
-  }catch (err) {
-  alert("❌ ERROR FROM SERVER:\n" + JSON.stringify(err, null, 2));
-  console.log("FULL ERROR:", err);
-}
+  window.open(
+    "https://wa.me/919535489504?text=" + encodeURIComponent(whatsappMsg),
+    "_blank"
+  );
 }

@@ -1,9 +1,15 @@
 fastapi
 uvicorn
 sqlalchemy
-passlib[argon2]
-argon2-cffi
-reportlab
 pydantic
 python-multipart
+
+# Auth / security
+passlib[argon2]
+argon2-cffi
+
+# PDF generation
+reportlab
+
+# Database
 psycopg2-binary

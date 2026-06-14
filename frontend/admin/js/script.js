@@ -280,3 +280,78 @@ function logout() {
   localStorage.removeItem("admin_logged_in");
   location.reload();
 }
+
+
+
+
+/* =========================================================
+   NEW INVOICE GENERATOR MODULE (ADDED WITHOUT TOUCHING OLD CODE)
+   ========================================================= */
+
+(function () {
+
+  const API_BASE_URL = "https://travelnestcabs-2.onrender.com";
+
+  async function generateManualInvoice() {
+
+    const customer = document.getElementById("invCustomer")?.value;
+    const service = document.getElementById("invService")?.value;
+    const car = document.getElementById("invCar")?.value;
+    const pickup = document.getElementById("invPickup")?.value;
+    const drop = document.getElementById("invDrop")?.value;
+    const fare = Number(document.getElementById("invFare")?.value || 0);
+    const toll = Number(document.getElementById("invToll")?.value || 0);
+    const parking = Number(document.getElementById("invParking")?.value || 0);
+
+    if (!customer) {
+      alert("Customer name required");
+      return;
+    }
+
+    try {
+
+      const res = await fetch(`${API_BASE_URL}/invoices/generate`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          customer,
+          service,
+          car,
+          pickup,
+          drop,
+          fare,
+          toll,
+          parking
+        })
+      });
+
+      if (!res.ok) {
+        alert("Invoice generation failed");
+        return;
+      }
+
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "invoice.pdf";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      URL.revokeObjectURL(url);
+
+    } catch (err) {
+      console.error(err);
+      alert("Invoice generation error");
+    }
+
+  }
+
+  // expose globally without interfering old code
+  window.generateManualInvoice = generateManualInvoice;
+
+})();
